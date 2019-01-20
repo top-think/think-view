@@ -11,7 +11,6 @@
 
 namespace think\response;
 
-use think\Container;
 use think\Response;
 
 class View extends Response
@@ -31,8 +30,7 @@ class View extends Response
     protected function output($data): string
     {
         // 渲染模板输出
-        return Container::pull('view')
-            ->filter($this->filter)
+        return \think\facade\View::filter($this->filter)
             ->assign($this->vars)
             ->fetch($data);
     }
@@ -85,7 +83,7 @@ class View extends Response
      */
     public function exists(string $name): bool
     {
-        return Container::pull('view')->exists($name);
+        return \think\facade\View::exists($name);
     }
 
 }

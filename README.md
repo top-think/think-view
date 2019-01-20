@@ -1,6 +1,6 @@
 # think-view
 
-ThinkPHP 视图组件类 For thinkPHP5.2
+ThinkPHP5.2 视图扩展
 
 ## 主要特性
 

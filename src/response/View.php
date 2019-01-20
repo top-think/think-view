@@ -31,9 +31,7 @@ class View extends Response
     protected function output($data): string
     {
         // 渲染模板输出
-        $config = Container::pull('config');
         return Container::pull('view')
-            ->init($config->pull('template'))
             ->filter($this->filter)
             ->assign($this->vars)
             ->fetch($data);
@@ -87,9 +85,7 @@ class View extends Response
      */
     public function exists(string $name): bool
     {
-        return Container::pull('view')
-            ->init(Container::pull('config')->pull('template'))
-            ->exists($name);
+        return Container::pull('view')->exists($name);
     }
 
 }

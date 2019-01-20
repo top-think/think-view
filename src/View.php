@@ -43,7 +43,7 @@ class View
         // 初始化模板引擎
         $type = $options['type'] ?? 'think';
         unset($options['type']);
-        $this->engine($type, $optons);
+        $this->engine($type, $options);
 
         return $this;
     }

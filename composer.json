@@ -22,7 +22,7 @@
     },
   "extra": {
     "think-config": {
-      "view": "src/config/view.php"
+      "template": "src/config/template.php"
     }
   }    
 }

@@ -1,10 +1,10 @@
 # think-view
 
-ThinkPHP 视图组件类
+ThinkPHP 视图组件类 For thinkPHP5.2
 
 ## 主要特性
 
-- 支持多种模板引擎切换；
+- 支持模板引擎驱动；
 - 支持直接使用PHP作为模板；
 - 支持模板渲染规则；
 - 支持输出过滤；
@@ -48,3 +48,5 @@ think\facade\View::assign(['name'=>'think']);
 // 使用助手函数
 view('index',['name'=>'think']);
 ~~~
+
+如果你的控制器需要使用模板渲染，可以直接继承 think\ViewController 或者使用view助手函数。

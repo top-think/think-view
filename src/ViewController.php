@@ -30,7 +30,7 @@ class ViewController extends Controller
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->view = $this->app['view'];
+        $this->view = $app->make('think\View');
     }
 
     /**

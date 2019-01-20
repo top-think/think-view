@@ -48,7 +48,7 @@ class Think
             $this->config['view_path'] = $this->app->getAppPath() . 'view' . DIRECTORY_SEPARATOR;
         }
 
-        $this->template = new Template($app, $this->config);
+        $this->template = new Template($this->config);
     }
 
     /**
@@ -90,7 +90,7 @@ class Think
         $this->app['log']
             ->record('[ VIEW ] ' . $template . ' [ ' . var_export(array_keys($data), true) . ' ]');
 
-        $this->template->assign($data)->fetch($template);
+        $this->template->fetch($template, $data);
     }
 
     /**
@@ -102,7 +102,7 @@ class Think
      */
     public function display(string $template, array $data = []): void
     {
-        $this->template->assign($data)->display($template);
+        $this->template->display($template, $data);
     }
 
     /**

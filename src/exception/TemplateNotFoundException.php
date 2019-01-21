@@ -26,7 +26,7 @@ class TemplateNotFoundException extends \RuntimeException
      * @access public
      * @return string
      */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->template;
     }

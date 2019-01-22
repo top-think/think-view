@@ -19,6 +19,7 @@ composer require topthink/think-view
 
 ## 用法示例
 
+本扩展不能单独使用，只能用于ThinkPHP5.2+
 
 ~~~php
 

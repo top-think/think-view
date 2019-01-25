@@ -45,7 +45,11 @@ class Think
         $this->config = array_merge($this->config, (array) $config);
 
         if (empty($this->config['view_path'])) {
-            $this->config['view_path'] = $this->app->getAppPath() . 'view' . DIRECTORY_SEPARATOR;
+            $this->config['view_path'] = $app->getAppPath() . 'view' . DIRECTORY_SEPARATOR;
+        }
+
+        if (empty($this->config['cache_path'])) {
+            $this->config['cache_path'] = $app->getRuntimePath() . 'temp' . DIRECTORY_SEPARATOR;
         }
 
         $this->template = new Template($this->config);

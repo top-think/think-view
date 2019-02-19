@@ -29,8 +29,8 @@ class ViewController extends Controller
      */
     public function __construct(App $app)
     {
-        parent::__construct($app);
         $this->view = $app->make('think\View');
+        parent::__construct($app);
     }
 
     /**

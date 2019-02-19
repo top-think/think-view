@@ -50,7 +50,7 @@ class View
 
     public static function __make(Config $config)
     {
-        return new static($config->pull('template'));
+        return new static($config->get('template'));
     }
 
     /**

@@ -13,7 +13,7 @@ declare (strict_types = 1);
 namespace think\view\driver;
 
 use think\App;
-use think\exception\TemplateNotFoundException;
+use think\template\exception\TemplateNotFoundException;
 
 class Php
 {

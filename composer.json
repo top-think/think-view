@@ -1,5 +1,6 @@
 {
     "name": "topthink/think-view",
+     "type": "think-extend",
     "description": "thinkphp view",
     "license": "Apache-2.0",
     "authors": [
@@ -10,6 +11,7 @@
     ],
     "require": {
     	"php": ">=7.1.0",
+        "topthink/think-installer": "^2.0",
         "topthink/think-template":"^2.0"
     },
     "autoload": {

@@ -58,12 +58,13 @@ class ViewController extends Controller
     /**
      * 模板变量赋值
      * @access protected
-     * @param  array $vars 模板变量
+     * @param  string|array $name  模板变量
+     * @param  mixed        $value 变量值
      * @return $this
      */
-    protected function assign(array $vars)
+    protected function assign($name, $value = null)
     {
-        $this->view->assign($vars);
+        $this->view->assign($name, $value);
 
         return $this;
     }

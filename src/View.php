@@ -56,12 +56,17 @@ class View
     /**
      * 模板变量赋值
      * @access public
-     * @param  array $vars  模板变量
+     * @param  string|array $name  模板变量
+     * @param  mixed        $value 变量值
      * @return $this
      */
-    public function assign(array $vars)
+    public function assign($name, $value = null)
     {
-        $this->data = array_merge($this->data, $vars);
+        if (is_array($name)) {
+            $this->data = array_merge($this->data, $name);
+        } else {
+            $this->data[$name] = $value;
+        }
 
         return $this;
     }

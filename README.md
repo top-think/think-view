@@ -1,15 +1,7 @@
 # think-view
 
-ThinkPHP5.2 视图扩展
+ThinkPHP5.2 Think-Template模板引擎驱动
 
-## 主要特性
-
-- 支持模板引擎驱动；
-- 支持直接使用PHP作为模板；
-- 支持模板渲染规则；
-- 支持输出过滤；
-- 支持使用Facade；
-- 支持助手函数；
 
 ## 安装
 
@@ -19,14 +11,16 @@ composer require topthink/think-view
 
 ## 用法示例
 
-本扩展不能单独使用，只能用于ThinkPHP5.2+
+本扩展不能单独使用，依赖ThinkPHP5.2+
+
+首先配置config目录下的template.php配置文件，然后可以按照下面的用法使用。
 
 ~~~php
 
-$view = new \think\View($config);
+use think\facade\View;
 
-// 模板变量赋值
-$view->assign(['name'=>'think'])
+// 模板变量赋值和渲染输出
+View::assign(['name' => 'think'])
 	// 输出过滤
 	->filter(function($content){
 		return str_replace('search', 'replace', $content);
@@ -34,20 +28,9 @@ $view->assign(['name'=>'think'])
 	// 读取模板文件渲染输出
 	->fetch('index');
 
-// 设置模板引擎
-$view->engine('think',['path'=>'template_to_path']);
 
-// 完整模板文件渲染
-$view->fetch('./template/test.php');
-
-// 渲染内容输出
-$view->display($content);
-
-// 或者使用Facade
-think\facade\View::assign(['name'=>'think']);
-
-// 使用助手函数
-view('index',['name'=>'think']);
+// 或者使用助手函数
+view('index', ['name' => 'think']);
 ~~~
 
-如果你的控制器需要使用模板渲染，可以直接继承 think\ViewController 或者使用view助手函数。
+具体的模板引擎配置请参考think-template库。

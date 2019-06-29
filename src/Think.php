@@ -44,8 +44,8 @@ class Think
 
         $this->config = array_merge($this->config, (array) $config);
 
-        if (empty($this->config['view_path'])) {
-            $this->config['view_path'] = $app->getAppPath() . 'view' . DIRECTORY_SEPARATOR;
+        if (empty($this->config['view_base'])) {
+            $this->config['view_base'] = $app->getRootPath() . 'view' . DIRECTORY_SEPARATOR;
         }
 
         if (empty($this->config['cache_path'])) {
@@ -126,12 +126,12 @@ class Think
             list($app, $template) = explode('@', $template);
         }
 
-        if ($this->config['view_base']) {
-            // 基础视图目录
-            $app  = isset($app) ? $app : $request->app();
-            $path = $this->config['view_base'] . ($app ? $app . DIRECTORY_SEPARATOR : '');
+        if ($this->config['view_path'] && !isset($app)) {
+            $path = $this->config['view_path'];
         } else {
-            $path = isset($app) ? $this->app->getBasePath() . $app . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR : $this->config['view_path'];
+            $app = isset($app) ? $app : $request->app();
+            // 基础视图目录
+            $path = $this->config['view_base'] . ($app ? $app . DIRECTORY_SEPARATOR : '');
         }
 
         $depr = $this->config['view_depr'];

@@ -132,6 +132,8 @@ class Think
             $app = isset($app) ? $app : $request->app();
             // 基础视图目录
             $path = $this->config['view_base'] . ($app ? $app . DIRECTORY_SEPARATOR : '');
+
+            $this->template->view_path = $path;
         }
 
         $depr = $this->config['view_depr'];

@@ -54,6 +54,7 @@ class Think
         }
 
         $this->template = new Template($this->config);
+        $this->template->setCache($app->cache);
         $this->template->extend('$Request', function (array $vars) {
             // 获取Request请求对象参数
             $method = array_shift($vars);

@@ -88,18 +88,6 @@ class Think
     }
 
     /**
-     * 模板变量赋值
-     * @access public
-     * @param  array $vars
-     * @return $this
-     */
-    public function assign(array $vars = [])
-    {
-        $this->template->assign($vars);
-        return $this;
-    }
-
-    /**
      * 渲染模板文件
      * @access public
      * @param  string $template 模板文件

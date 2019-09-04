@@ -88,10 +88,22 @@ class Think
     }
 
     /**
+     * 模板变量赋值
+     * @access public
+     * @param  array $vars
+     * @return $this
+     */
+    public function assign(array $vars = [])
+    {
+        $this->template->assign($vars);
+        return $this;
+    }
+
+    /**
      * 渲染模板文件
      * @access public
-     * @param  string    $template 模板文件
-     * @param  array     $data 模板变量
+     * @param  string $template 模板文件
+     * @param  array  $data 模板变量
      * @return void
      */
     public function fetch(string $template, array $data = []): void
@@ -116,8 +128,8 @@ class Think
     /**
      * 渲染模板内容
      * @access public
-     * @param  string    $template 模板内容
-     * @param  array     $data 模板变量
+     * @param  string $template 模板内容
+     * @param  array  $data 模板变量
      * @return void
      */
     public function display(string $template, array $data = []): void

@@ -26,17 +26,17 @@ class Think
     // 模板引擎参数
     protected $config = [
         // 默认模板渲染规则 1 解析为小写+下划线 2 全部转换小写 3 保持操作方法
-        'auto_rule'   => 1,
-        // 视图基础目录（集中式）
-        'view_base'   => '',
+        'auto_rule'     => 1,
+        // 视图目录名
+        'view_dir_name' => 'view',
         // 模板起始路径
-        'view_path'   => '',
+        'view_path'     => '',
         // 模板文件后缀
-        'view_suffix' => 'html',
+        'view_suffix'   => 'html',
         // 模板文件名分隔符
-        'view_depr'   => DIRECTORY_SEPARATOR,
+        'view_depr'     => DIRECTORY_SEPARATOR,
         // 是否开启模板编译缓存,设为false则每次都会重新编译
-        'tpl_cache'   => true,
+        'tpl_cache'     => true,
     ];
 
     public function __construct(App $app, array $config = [])
@@ -44,10 +44,6 @@ class Think
         $this->app = $app;
 
         $this->config = array_merge($this->config, (array) $config);
-
-        if (empty($this->config['view_base'])) {
-            $this->config['view_base'] = $app->getRootPath() . 'view' . DIRECTORY_SEPARATOR;
-        }
 
         if (empty($this->config['cache_path'])) {
             $this->config['cache_path'] = $app->getRuntimePath() . 'temp' . DIRECTORY_SEPARATOR;
@@ -145,9 +141,14 @@ class Think
         if ($this->config['view_path'] && !isset($app)) {
             $path = $this->config['view_path'];
         } else {
-            $app = isset($app) ? $app : $request->app();
-            // 基础视图目录
-            $path = $this->config['view_base'] . ($app ? $app . DIRECTORY_SEPARATOR : '');
+            $appName = isset($app) ? $app : $request->app();
+            $view    = $this->config['view_dir_name'];
+
+            if (is_dir($this->app->getAppPath() . $view)) {
+                $path = isset($app) ? $this->app->getBasePath() . ($appName ? $appName . DIRECTORY_SEPARATOR : '') . $view . DIRECTORY_SEPARATOR : $this->app->getAppPath() . $view . DIRECTORY_SEPARATOR;
+            } else {
+                $path = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . ($appName ? $appName . DIRECTORY_SEPARATOR : '');
+            }
 
             $this->template->view_path = $path;
         }

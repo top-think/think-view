@@ -51,6 +51,36 @@ class Think
 
         $this->template = new Template($this->config);
         $this->template->setCache($app->cache);
+        $this->template->extend('$Think', function (array $vars) {
+            $type  = strtoupper(trim(array_shift($vars)));
+            $param = implode('.', $vars);
+
+            switch ($type) {
+                case 'CONST':
+                    $parseStr = strtoupper($param);
+                    break;
+                case 'CONFIG':
+                    $parseStr = 'config(\'' . $param . '\')';
+                    break;
+                case 'LANG':
+                    $parseStr = 'lang(\'' . $param . '\')';
+                    break;
+                case 'NOW':
+                    $parseStr = "date('Y-m-d g:i a',time())";
+                    break;
+                case 'LDELIM':
+                    $parseStr = '\'' . ltrim($this->getConfig('tpl_begin'), '\\') . '\'';
+                    break;
+                case 'RDELIM':
+                    $parseStr = '\'' . ltrim($this->getConfig('tpl_end'), '\\') . '\'';
+                    break;
+                default:
+                    $parseStr = defined($type) ? $type : '\'\'';
+            }
+
+            return $parseStr;
+        });
+
         $this->template->extend('$Request', function (array $vars) {
             // 获取Request请求对象参数
             $method = array_shift($vars);

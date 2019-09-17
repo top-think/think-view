@@ -122,6 +122,20 @@ class Think
      */
     public function fetch(string $template, array $data = []): void
     {
+        if (empty($this->config['view_path'])) {
+            $view = $this->config['view_dir_name'];
+
+            if (is_dir($this->app->getAppPath() . $view)) {
+                $path = $this->app->getAppPath() . $view . DIRECTORY_SEPARATOR;
+            } else {
+                $appName = $this->app['request']->app();
+                $path    = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . ($appName ? $appName . DIRECTORY_SEPARATOR : '');
+            }
+
+            $this->config['view_path'] = $path;
+            $this->template->view_path = $path;
+        }
+
         if ('' == pathinfo($template, PATHINFO_EXTENSION)) {
             // 获取模板文件名
             $template = $this->parseTemplate($template);
@@ -168,19 +182,19 @@ class Think
             list($app, $template) = explode('@', $template);
         }
 
-        if ($this->config['view_path'] && !isset($app)) {
-            $path = $this->config['view_path'];
-        } else {
-            $appName = isset($app) ? $app : $request->app();
-            $view    = $this->config['view_dir_name'];
+        if (isset($app)) {
+            $view     = $this->config['view_dir_name'];
+            $viewPath = $this->app->getBasePath() . $app . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR;
 
-            if (is_dir($this->app->getAppPath() . $view)) {
-                $path = isset($app) ? $this->app->getBasePath() . ($appName ? $appName . DIRECTORY_SEPARATOR : '') . $view . DIRECTORY_SEPARATOR : $this->app->getAppPath() . $view . DIRECTORY_SEPARATOR;
+            if (is_dir($viewPath)) {
+                $path = $viewPath;
             } else {
-                $path = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . ($appName ? $appName . DIRECTORY_SEPARATOR : '');
+                $path = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR;
             }
 
             $this->template->view_path = $path;
+        } else {
+            $path = $this->config['view_path'];
         }
 
         $depr = $this->config['view_depr'];

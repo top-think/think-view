@@ -252,6 +252,19 @@ class Think
         return $this->template->getConfig($name);
     }
 
+    /**
+     * 设置布局
+     * @access public
+     * @param bool|string $name    布局模板名称 false 则关闭布局
+     * @param string      $replace 布局模板内容替换标识
+     * @return $this
+     */
+    public function layout(bool|string $name, string $replace = '') 
+    {
+        $this->template->layout($name, $replace);
+        return $this;
+    }
+
     public function __call($method, $params)
     {
         return call_user_func_array([$this->template, $method], $params);

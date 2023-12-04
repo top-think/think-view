@@ -16,8 +16,9 @@ use think\App;
 use think\helper\Str;
 use think\Template;
 use think\template\exception\TemplateNotFoundException;
+use think\contract\TemplateHandlerInterface;
 
-class Think
+class Think implements TemplateHandlerInterface
 {
     // 模板引擎实例
     private $template;

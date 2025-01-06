@@ -160,7 +160,7 @@ class Think
             list($app, $template) = explode('@', $template);
         } elseif ($request->layer()) {
             $app        = $request->layer();
-            $controller = $request->controller(true, true);
+            $controller = $request->controller(false, true);
         }
 
         if (isset($app)) {
@@ -169,6 +169,8 @@ class Think
 
             if (is_dir($viewPath)) {
                 $path = $viewPath;
+            } elseif (is_dir($this->app->getBasePath() . $view . DIRECTORY_SEPARATOR)) {
+                $path = $this->app->getBasePath() . $view . DIRECTORY_SEPARATOR;
             } else {
                 $path = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR;
             }

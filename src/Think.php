@@ -158,6 +158,9 @@ class Think
         if (strpos($template, '@')) {
             // 跨模块调用
             list($app, $template) = explode('@', $template);
+        } elseif ($request->layer()) {
+            $app        = $request->layer();
+            $controller = $request->controller(true, true);
         }
 
         if (isset($app)) {
@@ -179,7 +182,7 @@ class Think
 
         if (0 !== strpos($template, '/')) {
             $template   = str_replace(['/', ':'], $depr, $template);
-            $controller = $request->controller();
+            $controller = $controller ?? $request->controller();
 
             if (strpos($controller, '.')) {
                 $pos        = strrpos($controller, '.');

@@ -163,7 +163,9 @@ class Think
             $controller = $request->controller(false, true);
         }
 
-        if (isset($app)) {
+        if ($this->config['view_path']) {
+            $path = $this->config['view_path'];
+        } else {
             $view     = $this->config['view_dir_name'];
             $viewPath = $this->app->getBasePath() . $app . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR;
 
@@ -176,8 +178,6 @@ class Think
             }
 
             $this->template->view_path = $path;
-        } else {
-            $path = $this->config['view_path'];
         }
 
         $depr = $this->config['view_depr'];

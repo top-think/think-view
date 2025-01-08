@@ -144,6 +144,26 @@ class Think implements TemplateHandlerInterface
         $this->template->display($template, $data);
     }
 
+    protected function getViewPath(string $app): string
+    {
+        $view = $this->config['view_dir_name'];
+        $app  = $app ? $app . DIRECTORY_SEPARATOR : '';
+
+        $paths = [
+            $this->app->getBasePath() . $app . $view . DIRECTORY_SEPARATOR,
+            $this->app->getBasePath() . $view . DIRECTORY_SEPARATOR . $app,
+            $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . $app
+        ];
+
+        foreach ($paths as $path) {
+            if (is_dir($path)) {
+                return $path;
+            }
+        }
+
+        return '';     
+    }
+
     /**
      * 自动定位模板文件
      * @access private
@@ -167,16 +187,7 @@ class Think implements TemplateHandlerInterface
         if ($this->config['view_path']) {
             $path = $this->config['view_path'];
         } else {
-            $view     = $this->config['view_dir_name'];
-            $viewPath = $this->app->getBasePath() . $app . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR;
-
-            if (is_dir($viewPath)) {
-                $path = $viewPath;
-            } elseif (is_dir($this->app->getBasePath() . $view . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR)) {
-                $path = $this->app->getBasePath() . $view . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR;
-            } else {
-                $path = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR;
-            }
+            $path = $this->getViewPath($app ?? $this->app->http->getName());
 
             $this->template->view_path = $path;
         }

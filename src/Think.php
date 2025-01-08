@@ -13,11 +13,12 @@ declare (strict_types = 1);
 namespace think\view\driver;
 
 use think\App;
+use think\contract\TemplateHandlerInterface;
 use think\helper\Str;
 use think\Template;
 use think\template\exception\TemplateNotFoundException;
 
-class Think
+class Think implements TemplateHandlerInterface
 {
     // 模板引擎实例
     private $template;
@@ -158,7 +159,7 @@ class Think
         if (strpos($template, '@')) {
             // 跨模块调用
             list($app, $template) = explode('@', $template);
-        } elseif ($request->layer()) {
+        } elseif (method_exists($request, 'layer') && $request->layer()) {
             $app        = $request->layer();
             $controller = $request->controller(false, true);
         }

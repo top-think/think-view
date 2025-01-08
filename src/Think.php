@@ -105,20 +105,6 @@ class Think implements TemplateHandlerInterface
      */
     public function fetch(string $template, array $data = []): void
     {
-        if (empty($this->config['view_path'])) {
-            $view = $this->config['view_dir_name'];
-
-            if (is_dir($this->app->getAppPath() . $view)) {
-                $path = $this->app->getAppPath() . $view . DIRECTORY_SEPARATOR;
-            } else {
-                $appName = $this->app->http->getName();
-                $path    = $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . ($appName ? $appName . DIRECTORY_SEPARATOR : '');
-            }
-
-            $this->config['view_path'] = $path;
-            $this->template->view_path = $path;
-        }
-
         if ('' == pathinfo($template, PATHINFO_EXTENSION)) {
             // 获取模板文件名
             $template = $this->parseTemplate($template);
@@ -146,9 +132,8 @@ class Think implements TemplateHandlerInterface
 
     protected function getViewPath(string $app): string
     {
-        $view = $this->config['view_dir_name'] . DIRECTORY_SEPARATOR;
-        $app  = $app ? $app . DIRECTORY_SEPARATOR : '';
-
+        $view  = $this->config['view_dir_name'] . DIRECTORY_SEPARATOR;
+        $app   = $app ? $app . DIRECTORY_SEPARATOR : '';
         $paths = [
             $this->app->getBasePath() . $app . $view,
             $this->app->getBasePath() . $view . $app,

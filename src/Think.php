@@ -146,13 +146,13 @@ class Think implements TemplateHandlerInterface
 
     protected function getViewPath(string $app): string
     {
-        $view = $this->config['view_dir_name'];
+        $view = $this->config['view_dir_name'] . DIRECTORY_SEPARATOR;
         $app  = $app ? $app . DIRECTORY_SEPARATOR : '';
 
         $paths = [
-            $this->app->getBasePath() . $app . $view . DIRECTORY_SEPARATOR,
-            $this->app->getBasePath() . $view . DIRECTORY_SEPARATOR . $app,
-            $this->app->getRootPath() . $view . DIRECTORY_SEPARATOR . $app
+            $this->app->getBasePath() . $app . $view,
+            $this->app->getBasePath() . $view . $app,
+            $this->app->getRootPath() . $view . $app
         ];
 
         foreach ($paths as $path) {

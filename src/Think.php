@@ -180,6 +180,7 @@ class Think implements TemplateHandlerInterface
             $path = $this->config['view_path'];
         } else {
             $path = $this->getViewPath($app ?? $this->app->http->getName());
+            $this->template->view_path = $path;
         }
 
         $depr = $this->config['view_depr'];

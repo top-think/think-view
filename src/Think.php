@@ -171,6 +171,8 @@ class Think implements TemplateHandlerInterface
         if (strpos($template, '@')) {
             // 跨模块调用
             list($app, $template) = explode('@', $template);
+        } elseif ($this->app->http->getName()) {
+            $app = $this->app->http->getName();
         } elseif (method_exists($request, 'layer') && $request->layer()) {
             $app        = $request->layer();
             $controller = $request->controller(false, true);
